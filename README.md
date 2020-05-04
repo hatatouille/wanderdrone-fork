@@ -12,3 +12,4 @@ There is also a sample [tilestache.cfg](https://github.com/straup/wanderdrone/bl
 "dithered" style map tiles using [TileStache](http://www.tilestache.org/) and
 the [atkinstache](https://github.com/straup/tilestache-atkinstache) provider.
 
+file:///Users/hiroki.shiotsuka/Documents/Xcode/extra/wanderdrone/www/index.html?lat=35.6085681&lng=139.6717532

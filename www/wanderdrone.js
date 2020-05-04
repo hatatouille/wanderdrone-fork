@@ -1,6 +1,7 @@
 function wanderdrone_init(debug){
 
-	var base_template = 'http://example.com/layer/{Z}/{X}/{Y}.png';
+	// var base_template = 'http://example.com/layer/{Z}/{X}/{Y}.png';
+	var base_template = 'http://twofiftysix.spum.org/waterdithered/{Z}/{X}/{Y}.png';
 	var base_layer = new MM.TemplatedLayer(base_template);
 
 	var map = new MM.Map('map', base_layer);
@@ -11,11 +12,11 @@ function wanderdrone_init(debug){
 	var lon = random_longitude();
 	var zoom = random_int(4, 7);
 
-	if (debug){
-		lat = 37.75;
-		lon = -122.45;
-		zoom = 11;
-	}
+	// if (debug){
+	// 	lat = 37.75;
+	// 	lon = -122.45;
+	// 	zoom = 11;
+	// }
 
 	var center = new MM.Location(lat, lon);
 	map.setCenterZoom(center, zoom);
@@ -63,8 +64,8 @@ function wanderdrone_init(debug){
 
 			coords.innerHTML = html;
 
-			move(x, y);	
-		}, 50);
+			move(x, y);
+		}, 500);
 	};
 
 	var set_direction = function(){
@@ -201,15 +202,51 @@ function random_int(min, max){
 
 
 function random_latitude(){
-	return random_coordinate(90);
-}	
+	// return random_coordinate(36);
+	var _key = "lat"
+	var _lat = random_jp_coordinate(_key)
+	console.log("_lat: " + _lat)
+	return random_coordinate(_lat);
+}
 
 function random_longitude(){
-	return random_coordinate(180);
-}	
+	// return random_coordinate(140);
+	var _key = "lng"
+	var _lng = random_jp_coordinate(_key)
+	console.log("_lng: " + _lng)
+	return random_coordinate(_lng);
+}
 
 function random_coordinate(max){
-	return (Math.random() - 0.5) * max;
+	// return (Math.random() - 0.5) * max;
+	return max + (Math.random() - 0.5)/100
+}
+
+function random_jp_coordinate(key) {
+	var urlParam = location.search.substring(1);
+	if(urlParam) {
+		var param = urlParam.split('&');
+		var paramArray = [];
+		for(i = 0; i < param.length; i++) {
+			var paramItem = param[i].split('=');
+			paramArray[paramItem[0]] = paramItem[1];
+		}
+		if (key == "lat") {
+			console.log(paramArray.lat)
+			return paramArray.lat
+		} else {
+			console.log(paramArray.lng)
+			return paramArray.lng
+		}
+	} else {
+		if (key == "lat") {
+			console.log("Tokyo tower: lat")
+			return 35.6289258
+		} else {
+			console.log("Tokyo tower: lng")
+			return 139.7412498
+		}
+	}
 }
 
 function random_boolean(){
